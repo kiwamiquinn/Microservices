@@ -69,9 +69,33 @@ let email =$.trim($('#email').val()); //gets the user's email
     });
     
 
-    //TODO complete implementation using the product id
-    //call get cart function with param to be deleted
-    //alert("cart.js/deleteItem() is not implemented")
+function clearCart() {
+    var cartItems = [];
+
+    // get cart items first
+    $.ajax({
+        url: Url+'GetCart',
+        type: 'get',
+        dataType: 'json',
+        data: { 'email': email },
+        contentType: 'json',
+
+        success: function (data) {
+            cartItems = data.data.List;
+
+            console.log(cartItems); 
+
+            $.each( cartItems, function( key, value ) {
+                $.ajax({
+                    url: Url+'Cart/'+${value.id},
+                    type: 'delete',
+                    contentType: 'json',
+
+                });
+                getCart(email);
+          });
+        },
+    });
 }
 
 function checkOut() {
@@ -83,14 +107,27 @@ function checkOut() {
         dataType: 'json',
         data: {"email": email},
         contentType: 'text/plain',
-        
         success: function (data) {
-            //getCart($email);
-            alert("You have made your purchase. Thank you")
+            getCart(email);
+            var name = window.prompt("Enter in Full Name: ", "");
+            var address = window.prompt("Enter in Your Address: ", "");
+            address += " " + window.prompt("Enter in Your City: ", "");
+            address += ", " + window.prompt("Enter in Your State (Ex: CA): ", "");
+            address += " " + window.prompt("Enter in Your ZipCode: ", "");
+            if(address != null){
+                alert("ORDER CONFIRMATION \nName :  "+ name + "\nTotal Payment Charged: $"+ totalPrice + ".00\nShipping address: " + address + "\nThank You for your Order!");
+                document.write("Order Confirmation Number: " + (Math.floor(Math.random() * (9999999999999 - 1000000000000) + 1000000000000)))
+            }else{
+                alert("invalid");
+            }
+
         }
-        
-    
-    });
+
+    })
+
+
+}
+   
     
     //alert("cart.js/deleteItem() is not implemented")
     document.getElementById("btnDarkmode").onclick = function Darkmode(){
