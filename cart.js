@@ -93,5 +93,15 @@ function checkOut() {
     });
     
     //alert("cart.js/deleteItem() is not implemented")
+    document.getElementById("btnDarkmode").onclick = function Darkmode(){
+        //console.log("dark button working")
+        document.body.style.backgroundColor = "rgb(32, 33, 36)";
+        //document.getElementsByClassName(".card").style.backgroundColor = "rgb(55,57,59)";
+    }
+    document.getElementById("btnLightmode").onclick = function Lightmode(){
+        //console.log("light button working")
+        document.body.style.backgroundColor = "rgb(255, 255, 255)";
+        //document.getElementsByClassName(".card").style.backgroundColor = "rgb(55,57,59)";
+    }
 
 }
