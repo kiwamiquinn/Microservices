@@ -6,6 +6,8 @@ function fetchProductList() {
     item = {};
     var productList;
     var productListAdd;
+    var date = new Date();
+    var time;
 
     !($.trim($('#title').val()) == '') ? item ["title"] = $('#title').val(): '';
     !($.trim($('#operating_system').val()) == '') ? item ["operating_system"] = $('#operating_system').val(): '';
@@ -193,10 +195,9 @@ function setComment($id) {
 }
 
 function addToCart($id) {
+
     let email =$.trim($('#email').val()); //gets the user's email
-    
-    if (email != ''){
-    sessionStorage.setItem("email", email);
+
     $.ajax({
         url: Url + 'AddToCart',
         type: 'post',
@@ -205,22 +206,19 @@ function addToCart($id) {
         contentType: 'text/plain',
 
         success: function (data) { //on success
-            //fetchOneProduct($id);
-           
-            //sessionStorage.productListAdd($id);
-            alert("All done"); 
+            time = (date.getMonth()+1) + '-' + date.getDate() + '-' + date.getFullYear() + "\n" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+            sessionStorage.setItem('email', email);
+            alert("Added to Cart:\n"+ date); 
 
         }, 
-        error: function (data){
-            alert("Wrong"); 
+        error: function(data){
+            alert("Error!");
         }
-    });  
-    }
-    else {
-        alert("something wrong here in else");
-        
-    }      
+    });
+
+
 }
+
 
 function toShoppingCart(){
     let email =$.trim($('#email').val()); //gets the user's email
