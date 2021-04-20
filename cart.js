@@ -83,15 +83,29 @@ function checkOut() {
         dataType: 'json',
         data: {"email": email},
         contentType: 'text/plain',
-        
         success: function (data) {
-            //getCart($email);
-            alert("You have made your purchase. Thank you")
+            getCart(email);
+            var name = window.prompt("Enter in Full Name: ", "");
+            var address = window.prompt("Enter in Your Address: ", "");
+            address += " " + window.prompt("Enter in Your City: ", "");
+            address += ", " + window.prompt("Enter in Your State (Ex: CA): ", "");
+            address += " " + window.prompt("Enter in Your ZipCode: ", "");
+            if(address != null){
+                if (confirm(`IS THE INFORMATION BELOW CORRECT? \nName : ` + name + "\nTotal Payment Charged: $"+ totalPrice + ".00\nShipping address: " + address )) { //Have user confirm information
+                    txt = `THANK YOU FOR SHOPPING WITH US!\n\nORDER CONFIRMATION \nName : ` + name + "\nTotal Payment Charged: $"+ totalPrice + ".00\nShipping address: " + address;
+                    alert(txt);
+                    document.write("Order Confirmation Number: " + (Math.floor(Math.random() * (9999999999999 - 1000000000000) + 1000000000000)));
+                } else {
+                    txt = "Something Went Wrong! Try Again!";
+                    alert(txt);
+                  }
+            }else{
+                alert("invalid");
+            }
+            
         }
-        
-    
-    });
-    
-    //alert("cart.js/deleteItem() is not implemented")
+
+    })
+
 
 }
